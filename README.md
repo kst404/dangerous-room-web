@@ -1,7 +1,7 @@
 # Dangerous Room Meteor Based
 It's dangerous
 
-##Install
+## Install
 
 * ```meteor update```
 * ```meteor npm install```
