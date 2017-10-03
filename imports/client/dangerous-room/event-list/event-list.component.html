@@ -1,20 +1,9 @@
-<div layout="row">
-    <div flex-gt-md="40">
-        <md-card >
-            <md-card-title>
-                Event list
-            </md-card-title>
-            <md-card-content>
-                <md-nav-list>
-                    <md-list-item *ngFor="let ev of event_list">
-                        <h3 mdLine> {{ev.description}} </h3>
-                        <p mdLine>
-                            <span> {{ev.date}} </span>
-                            <span > -- {{ev.completed}} </span>
-                        </p>
-                    </md-list-item>
-                </md-nav-list>
-            </md-card-content>
-        </md-card>
-    </div>
-</div>
+<md-nav-list>
+    <md-list-item *ngFor="let ev of event_list">
+        <h3 mdLine> {{ev.description}} </h3>
+        <p mdLine>
+            <span> {{ev.date}} </span>
+            <span > -- {{ev.completed}} </span>
+        </p>
+    </md-list-item>
+</md-nav-list>
