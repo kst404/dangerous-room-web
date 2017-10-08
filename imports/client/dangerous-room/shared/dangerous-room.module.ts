@@ -8,6 +8,7 @@ import { DangerousRoomComponent } from './dangerous-room.component';
 import { drRouting } from './dangerous-room.routing';
 import { DREventListComponent } from '../event-list';
 import { DREventEditComponent } from '../event-edit';
+import { DRContactListComponent } from '../contact-list';
 
 import {
     MdSelectModule,
@@ -114,7 +115,8 @@ const COVALENT_MODULES:Array<any> = [
     declarations: [
         DangerousRoomComponent,
         DREventListComponent,
-        DREventEditComponent
+        DREventEditComponent,
+        DRContactListComponent
     ],
     providers: [
         // DemoDetailResolver,

@@ -30,7 +30,7 @@ Meteor.methods({
      */
     "dangerous-room/events/delete": function (id) {
         console.log("dangerous-room/events: param = " + JSON.stringify(id));
-        // TODO don't know what it does
+        // TODO
         // if (!Throttle.checkThenSet(this.connection.clientAddress+'_companyUpdate', 2, 120000)) {
         //     throw new Meteor.Error(500, 'Please wait at least 2m to try again');
         // }
@@ -41,14 +41,13 @@ Meteor.methods({
         // }
 
         check(id, String);
-        // Get lab
+
         let event = drCollectionEvents.findOne({_id: id});
         if (!event) {
             console.log("dangerous-room/events/delete: Can't find event with id " + id);
             throw new Meteor.Error(500, "Can't find event");
         }
 
-        // delete from the member list
         drCollectionEvents.remove({"_id": id});
     }
 });

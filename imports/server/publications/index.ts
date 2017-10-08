@@ -1,1 +1,3 @@
 import './events';
+import './contacts';
+

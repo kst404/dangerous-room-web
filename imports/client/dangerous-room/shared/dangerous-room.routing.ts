@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { DangerousRoomComponent } from './dangerous-room.component';
 import { DREventListComponent } from '../event-list';
 import { DREventEditComponent } from '../event-edit';
+import { DRContactListComponent } from '../contact-list';
 
 
 export const drRouting: ModuleWithProviders = RouterModule.forChild([
@@ -28,7 +29,26 @@ export const drRouting: ModuleWithProviders = RouterModule.forChild([
                     }
                 ]
 
+            },
+            {
+                path: 'contacts',
+                children:[
+                    {
+                        path: '',
+                        component: DRContactListComponent
+                    },
+                    {
+                        path: 'add',
+                        component: DREventEditComponent
+                    },
+                    {
+                        path: ':id/edit',
+                        component: DREventEditComponent
+                    }
+                ]
+
             }
+
         ]
     }
 ]);

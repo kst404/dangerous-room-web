@@ -5,6 +5,7 @@ import { Observable, Observer } from 'rxjs/Rx';
 import { BaseService } from '../../lib';
 
 import { drCollectionEvents, drCollectionRooms } from '../../../collections';
+import {drCollectionContacts} from "../../../collections/contacts";
 
 @Injectable()
 export class DangerousRoomService extends BaseService {
@@ -23,5 +24,13 @@ export class DangerousRoomService extends BaseService {
 
     get allRooms$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/rooms',() => drCollectionRooms.find({}).fetch());
+    }
+
+    get allContacts$():Observable<any[]> {
+        return this.MeteorSubscribeAutorun('dangerous-room/contacts',() => drCollectionContacts.find({}).fetch());
+    }
+
+    deleteContact(itemID: string): void {
+        Meteor.call('dangerous-room/contacts/delete', itemID);
     }
 }

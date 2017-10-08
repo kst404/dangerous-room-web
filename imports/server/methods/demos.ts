@@ -1,6 +1,8 @@
 import { check } from 'meteor/check';
 
-import { drCollectionEvents, drCollectionRooms } from '../../collections';
+import { drCollectionEvents,
+    drCollectionContacts,
+    drCollectionRooms } from '../../collections';
 
 Meteor.methods({
 
@@ -21,7 +23,6 @@ Meteor.methods({
                     completed: false
                 }
             ];
-
             for (let item of defaultEvents) {
                 drCollectionEvents.insert(item);
             }
@@ -29,6 +30,30 @@ Meteor.methods({
             console.log(`[dbInit] Inserted ${drCollectionEvents.find().count()} documents to "Events". `);
         } else {
             console.log(`[dbInit] ${drCollectionEvents.find().count()} documents already exist in "Events". `);
+        }
+        if (drCollectionContacts.find().count() === 0) {
+
+            let defaultContacts: ContactItem[] = [
+                {
+                    firstName: 'Homer',
+                    lastName: 'Simpson',
+                    telephone: '+1(513)1112233'
+                }, {
+                    firstName: 'Marge',
+                    lastName: 'Simpson',
+                    telephone: '+1(513)1112234'
+                }, {
+                    firstName: 'Bart',
+                    lastName: 'Simpson',
+                    telephone: '+1(513)1112235'
+                }
+            ];
+            for (let item of defaultContacts) {
+                drCollectionContacts.insert(item);
+            }
+            console.log(`[dbInit] Inserted ${drCollectionContacts.find().count()} documents to "Contacts". `);
+        } else {
+            console.log(`[dbInit] ${drCollectionContacts.find().count()} documents already exist in "Contacts". `);
         }
     },
 
