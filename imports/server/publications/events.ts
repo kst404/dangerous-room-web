@@ -12,13 +12,20 @@ Meteor.publish('dangerous-room/events', function(): Mongo.Cursor<EventItem> {
 });
 
 drCollectionEvents.deny({
-    insert: function () {
-        return true;
-    },
-    update: function () {
-        return true;
-    },
+    // insert: function () {
+    //     return true;
+    // },
+    // update: function () {
+    //     return true;
+    // },
     remove: function () {
+        return true;
+    }
+});
+
+drCollectionEvents.allow({
+    update: function () {
+        console.log('Update came?');
         return true;
     }
 });
