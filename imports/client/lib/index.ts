@@ -1,4 +1,4 @@
-export * from './basic.service'
+export * from './base.service'
 export * from './meteor.observable'
-export * from './sdbasecomponent'
+export * from './base.component'
 export * from './tracking'

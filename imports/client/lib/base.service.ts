@@ -8,11 +8,11 @@ import {
     Observable,
     Subscriber
 } from 'rxjs';
-import { SDTracking } from './tracking';
+import { Tracking } from './tracking';
 
 import { MeteorObservable } from './meteor.observable';
 
-export class BasicService extends SDTracking {
+export class BaseService extends Tracking {
 
     protected _submitting = false;
 

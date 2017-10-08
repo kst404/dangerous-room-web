@@ -1,0 +1,67 @@
+<td-layout-card-over cardTitle="Event {{action}} form" cardSubtitle="Fill free to fill the form"  cardWidth="75">
+    <!--<ng-template tdLoading="user.form">-->
+    <md-card-content class="push-bottom-none">
+        <form #eventForm="ngForm">
+            <div layout="row">
+                <md-form-field flex-gt-md="50" flex>
+                    <input mdInput
+                           #displayNameElement
+                           #displayNameControl="ngModel"
+                           type="text"
+                           placeholder="Event description"
+                           [(ngModel)]="event.event_description"
+                           name="event_description"
+                           maxlength="200"
+                           required>
+                    <md-hint align="start">
+                        <span [hidden]="displayNameControl.pristine" class="tc-red-600">
+                            <span [hidden]="!displayNameControl.errors?.required">Required</span>
+                        </span>
+                    </md-hint>
+                    <md-hint align="end">{{displayNameElement.value.length}} / 200</md-hint>
+                </md-form-field>
+            </div>
+            <div layout="row" class="push-top">
+                <md-form-field flex-gt-md="50" flex>
+                    <input mdInput
+                           #dateControl="ngModel"
+                           [mdDatepicker]="picker"
+                           placeholder="Event's date"
+                           [(ngModel)]="event.date"
+                           name="date"
+                           required>
+                    <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                    <md-datepicker #picker></md-datepicker>
+                    <md-hint align="start">
+                        <span [hidden]="dateControl.pristine" class="tc-red-600">
+                            <span [hidden]="!dateControl.errors?.required">Required</span>
+                        </span>
+                    </md-hint>
+                </md-form-field>
+            </div>
+            <div layout="row" class="push-top">
+                <md-form-field flex-gt-md="50" flex>
+                    <input mdInput
+                           #durationControl="ngModel"
+                           type="number"
+                           placeholder="Event's duration minutes"
+                           [(ngModel)]="event.duration"
+                           name="duration"
+                           min="0"
+                           required>
+                    <md-hint align="start">
+                        <span [hidden]="durationControl.pristine" class="tc-red-600">
+                            <span [hidden]="!durationControl.errors?.required">Required</span>
+                        </span>
+                    </md-hint>
+                </md-form-field>
+            </div>
+        </form>
+    </md-card-content>
+    <md-divider></md-divider>
+    <md-card-actions>
+        <!--<button md-button [disabled]="!userForm.form.valid" color="primary" (click)="save()">SAVE</button>-->
+        <button md-button (click)="back()" color="accent">BACK</button>
+    </md-card-actions>
+    <!--</ng-template>-->
+</td-layout-card-over>

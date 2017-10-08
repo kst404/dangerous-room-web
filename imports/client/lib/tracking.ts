@@ -2,7 +2,7 @@
 
 import { Subscription } from 'rxjs';
 
-export class SDTracking {
+export class Tracking {
 
     protected __disposables: {dispose: string, track: Object, id?: string}[] = [];
 

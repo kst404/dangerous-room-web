@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { Meteor } from 'meteor/meteor';
 import { Observable, Observer } from 'rxjs/Rx';
 
-import { BasicService } from '../../lib';
+import { BaseService } from '../../lib';
 
 import { drCollectionEvents, drCollectionRooms } from '../../../collections';
 
 @Injectable()
-export class DangerousRoomService extends BasicService {
+export class DangerousRoomService extends BaseService {
 
     constructor() {
         super();
@@ -18,7 +18,7 @@ export class DangerousRoomService extends BasicService {
     }
 
     deleteEvent(itemID: string): void {
-        Meteor.call('deleteDemoItem', itemID);
+        Meteor.call('dangerous-room/events/delete', itemID);
     }
 
     get allRooms$():Observable<any[]> {

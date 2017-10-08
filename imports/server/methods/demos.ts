@@ -10,12 +10,12 @@ Meteor.methods({
 
             let defaultEvents: EventItem[] = [
                 {
-                    description: 'going to vivarium Room 6.149',
+                    event_description: 'going to vivarium Room 6.149',
                     date: new Date(),
                     duration: 3600,
                     completed: false
                 }, {
-                    description: 'going to imaging Core Room',
+                    event_description: 'going to imaging Core Room',
                     date: new Date(),
                     duration: 3600,
                     completed: false

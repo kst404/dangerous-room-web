@@ -4,9 +4,9 @@ import { Input, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 
-import { SDTracking } from './tracking';
+import { Tracking } from './tracking';
 
-export class SDBaseComponent extends SDTracking implements OnDestroy {
+export class BaseComponent extends Tracking implements OnDestroy {
     id = Random.id();
 
     protected _showError;
