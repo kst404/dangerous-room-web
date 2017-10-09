@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MdSnackBar } from '@angular/material';
+import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
 
 import { Observable } from 'rxjs/Rx';
 import { TdDialogService } from '@covalent/core';
@@ -78,7 +78,7 @@ export class DREventEditComponent extends BaseComponent implements OnInit {
                                 this._snackBarService.open('Event added', '', {duration: 2000});
                             } else {
 
-                                this._snackBarService.open('Event saved', '', {duration: 2000});
+                                this._snackBarService.open('Event saved', '', { duration: 2000 });
                             }
                         }
                     })

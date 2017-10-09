@@ -4,8 +4,12 @@ import { Observable, Observer } from 'rxjs/Rx';
 
 import { BaseService } from '../../lib';
 
-import { drCollectionEvents, drCollectionRooms } from '../../../collections';
-import {drCollectionContacts} from "../../../collections/contacts";
+import {
+    drCollectionEvents,
+    drCollectionRooms,
+    drCollectionContacts,
+    drCollectionNotifications
+} from '../../../collections';
 
 @Injectable()
 export class DangerousRoomService extends BaseService {
@@ -15,7 +19,7 @@ export class DangerousRoomService extends BaseService {
     }
 
     get allEvents$():Observable<any[]> {
-        return this.MeteorSubscribeAutorun('dangerous-room/events',() => drCollectionEvents.find({}).fetch());
+        return this.MeteorSubscribeAutorun('dangerous-room/events',() => drCollectionEvents.find({},{sort:{date:-1}}).fetch());
     }
 
     deleteEvent(itemID: string): void {
@@ -28,6 +32,10 @@ export class DangerousRoomService extends BaseService {
 
     get allContacts$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/contacts',() => drCollectionContacts.find({}).fetch());
+    }
+
+    get allNotifications$():Observable<any[]> {
+        return this.MeteorSubscribeAutorun('dangerous-room/notifications',() => drCollectionNotifications.find({},{sort:{ts:-1}}).fetch());
     }
 
     deleteContact(itemID: string): void {

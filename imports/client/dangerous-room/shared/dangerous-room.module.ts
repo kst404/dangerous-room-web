@@ -44,6 +44,7 @@ import { Ng2BootstrapModule } from 'ngx-bootstrap';
 import {
     CovalentLayoutModule,
     CovalentNotificationsModule,
+    CovalentMessageModule,
     CovalentChipsModule,
     CovalentFileModule,
     CovalentStepsModule,
@@ -99,7 +100,8 @@ const COVALENT_MODULES:Array<any> = [
     CovalentMediaModule,
     CovalentLoadingModule,
     CovalentDataTableModule,
-    CovalentPagingModule
+    CovalentPagingModule,
+    CovalentMessageModule
 ];
 
 
