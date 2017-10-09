@@ -10,9 +10,13 @@ import {
     drCollectionContacts,
     drCollectionNotifications
 } from '../../../collections';
+import {Subject} from "rxjs/Subject";
 
 @Injectable()
 export class DangerousRoomService extends BaseService {
+
+    private _notifications = {};
+    private _notifications$ = new Subject();
 
     constructor() {
         super();
@@ -36,6 +40,26 @@ export class DangerousRoomService extends BaseService {
 
     get allNotifications$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/notifications',() => drCollectionNotifications.find({},{sort:{ts:-1}}).fetch());
+    }
+
+    setNotifications(notif:any[]) {
+        this._notifications$.next([]);
+        notif.forEach(_n => {
+            if(!this._notifications[_n._id]) {
+                this._notifications[_n._id] = _n;
+                this._notifications[_n._id]['timeToShow'] = true;
+                Meteor.setTimeout(() => {
+                    let id = _n.id;
+                    this._notifications[_n._id]['timeToShow'] = false;
+                    this._notifications$.next(_.values(this._notifications));
+                },5000);
+                this._notifications$.next(_.values(this._notifications));
+            }
+        })
+    }
+
+    get getNotifications$() {
+        return this._notifications$.asObservable();
     }
 
     deleteContact(itemID: string): void {

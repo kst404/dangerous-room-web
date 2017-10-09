@@ -22,7 +22,7 @@ export class DREventListComponent extends BaseComponent implements OnInit {
 
     private event_list:EventItem[];
 
-    private notifications: any[];
+    private notifications;
 
     constructor (private _drService: DangerousRoomService,
                  private _dialogService:TdDialogService,
@@ -39,18 +39,13 @@ export class DREventListComponent extends BaseComponent implements OnInit {
             });
         });
         this.tracked = this._drService.allNotifications$.subscribe((e) => {
-            this._zone.run(() => {
-                this.notifications = e;
-            });
-            Meteor.setTimeout(() => {
-                this._zone.run(() => {
-                    this.notifications = this.notifications.map( n => {
-                        n['timeToShow'] = false;
-                        return n;
-                    });
-                });
-            },3000);
+            this._drService.setNotifications(e);
         });
+        this.tracked = this._drService.getNotifications$.subscribe((v)=>{
+            this._zone.run(() => {
+                this.notifications = v;
+            });
+        })
     }
 
     onDeleteItem(itemID: string): void {

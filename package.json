@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "meteor": "ROOT_URL= MONGO_URL=mongodb://localhost:27017/dangerous-room meteor --port 3000 --settings private/settings.json",
-    "build": "meteor build ../dangerous-room-build && scp ../dangerous-room-build/dangerous-room.tar.gz dangerous-room:/dangerous-room/ && rm -rf ../dangerous-room-build",
+    "build": "meteor build ../dangerous-room-build && scp ../dangerous-room-build/dangerous-room-web.tar.gz dangerous-room:/dangerous-room/ && rm -rf ../dangerous-room-build",
     "test": "./run_tests.sh",
     "postinstall": "typings i"
   },
