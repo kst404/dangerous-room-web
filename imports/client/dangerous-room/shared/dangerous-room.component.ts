@@ -9,12 +9,12 @@ import style from './dangerous-room.component.scss';
               <span>&nbsp;</span>
               <span flex></span>
 
-              <button md-icon-button [routerLink]="['/dangerous-room/events']" [routerLinkActive]="['tc-blue-grey-200']"><md-icon  class="md-24">list</md-icon></button>
-              <button md-icon-button [routerLink]="['/dangerous-room/contacts']" [routerLinkActive]="['tc-blue-grey-200']"><md-icon class="md-24">person</md-icon></button>
-              <!--<button md-icon-button><md-icon class="md-24">view_module</md-icon></button>-->
-              <!--<button md-icon-button><md-icon class="md-24">sort</md-icon></button>-->
-              <!--<button md-icon-button><md-icon class="md-24">settings</md-icon></button>-->
-              <!--<button md-icon-button><md-icon class="md-24">more_vert</md-icon></button>-->
+              <button mat-icon-button [routerLink]="['/dangerous-room/events']" [routerLinkActive]="['tc-blue-grey-200']"><mat-icon  class="mat-24">list</mat-icon></button>
+              <button mat-icon-button [routerLink]="['/dangerous-room/contacts']" [routerLinkActive]="['tc-blue-grey-200']"><mat-icon class="mat-24">person</mat-icon></button>
+              <!--<button mat-icon-button><mat-icon class="mat-24">view_module</mat-icon></button>-->
+              <!--<button mat-icon-button><mat-icon class="mat-24">sort</mat-icon></button>-->
+              <!--<button mat-icon-button><mat-icon class="mat-24">settings</mat-icon></button>-->
+              <!--<button mat-icon-button><mat-icon class="mat-24">more_vert</mat-icon></button>-->
           </div>
           <router-outlet></router-outlet>
       </td-layout-nav>

@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 import { Observable } from 'rxjs/Rx';
 import { TdDialogService } from '@covalent/core';
@@ -41,7 +41,7 @@ export class DREventEditComponent extends BaseComponent implements OnInit {
                  private _dialogService:TdDialogService,
                  private _zone: NgZone,
                  private _route: ActivatedRoute,
-                 private _snackBarService: MdSnackBar,
+                 private _snackBarService: MatSnackBar,
     ) {
         super();
     }

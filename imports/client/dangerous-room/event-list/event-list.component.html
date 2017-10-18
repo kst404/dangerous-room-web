@@ -18,17 +18,17 @@
             </div>
         </ng-template>
     </div>
-    <md-card-content>
-        <md-nav-list>
-            <md-list-item *ngFor="let ev of event_list">
-                <h3 mdLine> {{ev.event_description}} </h3>
-                <p mdLine>
+    <mat-card-content>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let ev of event_list">
+                <h3 matLine> {{ev.event_description}} </h3>
+                <p matLine>
                     <span> {{ev.date | date:"MM/dd/yy"}} </span>
                 </p>
-                <button md-icon-button [routerLink]="[ev._id,'edit']"><md-icon>edit</md-icon></button>
-                <button md-icon-button color="warn" (click)="onDeleteItem(ev._id)"><md-icon color="warn">delete_forever</md-icon></button>
-            </md-list-item>
-        </md-nav-list>
-    </md-card-content>
+                <button mat-icon-button [routerLink]="[ev._id,'edit']"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button color="warn" (click)="onDeleteItem(ev._id)"><mat-icon color="warn">delete_forever</mat-icon></button>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-card-content>
 </td-layout-card-over>
 

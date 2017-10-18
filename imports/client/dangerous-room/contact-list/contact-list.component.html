@@ -1,16 +1,16 @@
 <td-layout-card-over cardTitle="Contact List" cardSubtitle="Emergency Contact list" cardWidth="75">
-    <md-card-content>
-        <md-nav-list>
-            <md-list-item *ngFor="let contact of contact_list">
-                <md-icon md-list-avatar>person</md-icon>
-                <h3 mdLine> {{contact.firstName}} {{contact.lastName}}</h3>
-                <p mdLine>
+    <mat-card-content>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let contact of contact_list">
+                <mat-icon mat-list-avatar>person</mat-icon>
+                <h3 matLine> {{contact.firstName}} {{contact.lastName}}</h3>
+                <p matLine>
                     <span> {{contact.telephone }} </span>
                 </p>
-                <button md-icon-button [routerLink]="[contact._id,'edit']"><md-icon>edit</md-icon></button>
-                <button md-icon-button color="warn" (click)="onDeleteItem(contact._id)"><md-icon color="warn">delete_forever</md-icon></button>
-            </md-list-item>
-        </md-nav-list>
-    </md-card-content>
+                <button mat-icon-button [routerLink]="[contact._id,'edit']"><mat-icon>edit</mat-icon></button>
+                <button mat-icon-button color="warn" (click)="onDeleteItem(contact._id)"><mat-icon color="warn">delete_forever</mat-icon></button>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-card-content>
 </td-layout-card-over>
 
