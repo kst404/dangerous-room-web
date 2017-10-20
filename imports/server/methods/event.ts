@@ -26,7 +26,7 @@ Meteor.methods({
         check(deviceId, String);
 
         let event = drCollectionEvents.findOne({_id: id});
-        if (!event || !_.contains(['start','active','passive','stop'],status)) {
+        if (!event || !_.contains(['start','active','passive','stop','alarm'],status)) {
             Log.debug("dangerous-room/events/status: Can't find event with id " + id);
             throw new Meteor.Error(500, "Can't find event");
         }
@@ -41,7 +41,7 @@ Meteor.methods({
                 event: event
             }
         };
-        if(status == 'active') {
+        if(status == 'alarm') {
             Log.debug('Send SMS!', "Someone "+event.event_description);
             Twilio.sendSMS("Someone "+event.event_description);
         }

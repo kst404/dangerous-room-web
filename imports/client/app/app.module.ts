@@ -6,6 +6,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MomentModule } from 'angular2-moment';
+
 import { AppComponent } from './app.component';
 import { appRouting } from './app.routing';
 import { DangerousRoomModule } from '../dangerous-room/shared/dangerous-room.module';
@@ -111,6 +113,7 @@ const COVALENT_MODULES:Array<any> = [
         BrowserAnimationsModule,
         ReactiveFormsModule,
         Ng2BootstrapModule,
+        MomentModule,
         MD_MATERIAL_MODULES,
         COVALENT_MODULES
     ],

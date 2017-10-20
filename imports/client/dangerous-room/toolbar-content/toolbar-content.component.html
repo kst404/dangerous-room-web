@@ -22,7 +22,7 @@
                     <a mat-list-item>
                         <mat-icon matListAvatar>today</mat-icon>
                         <h4 matLine><span class="text-wrap">Someone {{notif.message.event.event_description}}!</span></h4>
-                        <p matLine>{{notif.ts | timeAgo }}</p>
+                        <p matLine>{{notif.ts | amCalendar }}</p>
                     </a>
                     <mat-divider *ngIf="!last"></mat-divider>
                 </ng-template>
