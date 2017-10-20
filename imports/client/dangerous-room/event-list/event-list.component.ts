@@ -4,7 +4,6 @@ import { TdDialogService } from '@covalent/core';
 import { TdFadeInOutAnimation } from '@covalent/core';
 
 import { DangerousRoomService } from '../shared/dangerous-room.service';
-import { Log } from '../../../modules';
 import { BaseComponent } from '../../lib';
 
 import template from './event-list.component.html';
@@ -40,32 +39,33 @@ export class DREventListComponent extends BaseComponent implements OnInit {
 
         let x = null;
         this.tracked = this._drService.allNotifications$.subscribe((e) => {
-            if(e && e.length > 0 && !_.find(this.notifications,(n) => n["_id"] == e[0]["_id"])) {
-                console.log('SUBS e:',e);
-
                 this._zone.run(() => {
-                    e[0]['timeToShow'] = true;
-                    this.notifications.push(e[0]);
+                    this.notifications = this._drService.getLastNotifications(e);
                 });
-
-                Meteor.setTimeout(() => {
-                    this._zone.run(() => {
-                        e[0]['timeToShow'] = false;
-                    });
-                },5000);
-
-                if(x) {
-                    Meteor.clearTimeout(x);
-                    x = null;
-                }
-
-                x = Meteor.setTimeout(() => {
-                    this.notifications = this.notifications
-                        .filter((n) => n['timeToShow']);
-                    console.log('SUBS:',this.notifications);
-                    x = null;
-                },30000);
-            }
+            // if(e && e.length > 0 && !_.find(this.notifications,(n) => n["_id"] == e[0]["_id"])) {
+            //
+            //     this._zone.run(() => {
+            //         e[0]['timeToShow'] = true;
+            //         this.notifications.push(e[0]);
+            //     });
+            //
+            //     Meteor.setTimeout(() => {
+            //         this._zone.run(() => {
+            //             e[0]['timeToShow'] = false;
+            //         });
+            //     },5000);
+            //
+            //     if(x) {
+            //         Meteor.clearTimeout(x);
+            //         x = null;
+            //     }
+            //
+            //     x = Meteor.setTimeout(() => {
+            //         this.notifications = this.notifications
+            //             .filter((n) => n['timeToShow']);
+            //         x = null;
+            //     },30000);
+            // }
         });
     }
 

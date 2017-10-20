@@ -1,0 +1,39 @@
+<div layout="row" layout-align="start center" flex>
+    <span>&nbsp;</span>
+    <span flex></span>
+
+    <button mat-icon-button [routerLink]="['/dangerous-room/events']" [routerLinkActive]="['tc-blue-grey-200']">
+        <mat-icon  class="mat-24">list</mat-icon></button>
+    <button mat-icon-button [routerLink]="['/dangerous-room/contacts']" [routerLinkActive]="['tc-blue-grey-200']">
+        <mat-icon class="mat-24">person</mat-icon></button>
+    <!--<button mat-icon-button [routerLink]="['/dangerous-room/notifications']" [routerLinkActive]="['tc-blue-grey-200']">-->
+        <!--<mat-icon class="mat-24">notifications</mat-icon></button>-->
+
+    <button class="overflow-visible" mat-icon-button [matMenuTriggerFor]="notificationsMenu" [routerLinkActive]="['tc-blue-grey-200']">
+        <td-notification-count [notifications]="notifications_count">
+            <mat-icon class="mat-24">notifications</mat-icon>
+        </td-notification-count>
+    </button>
+    <mat-menu #notificationsMenu="matMenu" [overlapTrigger]="false">
+        <td-menu>
+            <div td-menu-header class="mat-subhead">Notifications</div>
+            <mat-nav-list dense>
+                <ng-template let-last="last" ngFor let-notif [ngForOf]="get10Notifications()">
+                    <a mat-list-item>
+                        <mat-icon matListAvatar>today</mat-icon>
+                        <h4 matLine><span class="text-wrap">Someone {{notif.message.event.event_description}}!</span></h4>
+                        <p matLine>{{notif.ts | timeAgo }}</p>
+                    </a>
+                    <mat-divider *ngIf="!last"></mat-divider>
+                </ng-template>
+            </mat-nav-list>
+            <button mat-button color="accent" td-menu-footer [routerLink]="['/dangerous-room/notifications']">
+                See All Notifications
+            </button>
+        </td-menu>
+    </mat-menu>
+    <!--<button mat-icon-button><mat-icon class="mat-24">view_module</mat-icon></button>-->
+    <!--<button mat-icon-button><mat-icon class="mat-24">sort</mat-icon></button>-->
+    <!--<button mat-icon-button><mat-icon class="mat-24">settings</mat-icon></button>-->
+    <!--<button mat-icon-button><mat-icon class="mat-24">more_vert</mat-icon></button>-->
+</div>

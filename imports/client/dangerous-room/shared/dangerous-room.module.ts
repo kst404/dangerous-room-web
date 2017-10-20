@@ -9,6 +9,7 @@ import { drRouting } from './dangerous-room.routing';
 import { DREventListComponent } from '../event-list';
 import { DREventEditComponent } from '../event-edit';
 import { DRContactListComponent } from '../contact-list';
+import { DRToolbarContentComponent } from '../toolbar-content';
 
 import {
     MatSelectModule,
@@ -118,7 +119,8 @@ const COVALENT_MODULES:Array<any> = [
         DangerousRoomComponent,
         DREventListComponent,
         DREventEditComponent,
-        DRContactListComponent
+        DRContactListComponent,
+        DRToolbarContentComponent
     ],
     providers: [
         // DemoDetailResolver,

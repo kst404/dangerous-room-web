@@ -17,6 +17,7 @@ export class DangerousRoomService extends BaseService {
 
     private _notifications = {};
     private _notifications$ = new Subject();
+    private notifications = [];
 
     constructor() {
         super();
@@ -42,9 +43,23 @@ export class DangerousRoomService extends BaseService {
         return this.MeteorSubscribeAutorun('dangerous-room/notifications/new',
             () => drCollectionNotifications
                 .find({"showed":{$exists:false}},{sort:{ts:-1}})
-                .fetch());
+                .fetch()
+        );
     }
 
+    getLastNotifications(e?):any[] {
+        if(e && e.length > 0 && !_.find(this.notifications,(n) => n["_id"] == e[0]["_id"])) {
+
+            e[0]['timeToShow'] = true;
+            this.notifications.unshift(e[0]);
+
+            Meteor.setTimeout(() => {
+                e[0]['timeToShow'] = false;
+            },5000);
+        }
+        this._notifications$.next(this.notifications);
+        return this.notifications;
+    }
     /**
      * @deprecated
      * @param {any[]} notif
@@ -69,7 +84,6 @@ export class DangerousRoomService extends BaseService {
     }
 
     /**
-     * @deprecated
      * @returns {Observable<any>}
      */
     get getNotifications$() {
