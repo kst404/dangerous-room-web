@@ -1,0 +1,38 @@
+{
+  "name": "Dangerous Room",
+  "logLevel": "debug",
+  "base_url": "https://dangerous-room.com/",
+  "email": {
+    "url": "smtps://dangerous-room%40dangerous-room.com:SECRETPASSWORD@smtp.gmail.com:465/",
+    "from": "dangerous-room@dangerous-room.com"
+  },
+  "public": {
+    "analyticsSettings": {
+      "Google Analytics": {
+        "trackingId": "UA-11111111-1"
+      }
+    }
+  },
+  "accounts":{
+    "sendVerificationEmail": true,
+    "forbidClientAccountCreation": true,
+    "loginExpirationInDays": 1
+  },
+  "twilio":{
+    "accountSid": "",
+    "authToken": "",
+    "phone": "+1xxxxx"
+  },
+  "oauth": [
+    {
+      "service": "google",
+      "clientId": "",
+      "secret": ""
+    },
+    {
+      "service": "facebook",
+      "appId": "",
+      "secret": ""
+    }
+  ]
+}
