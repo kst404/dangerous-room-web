@@ -1,6 +1,6 @@
-// import { twilio } from 'twilio';
+import { Log } from '../../../modules';
 
-let twilio = require('twilio');
+const twilio = require('twilio');
 
 class twilioNodeWrapper {
 
@@ -27,11 +27,11 @@ class twilioNodeWrapper {
                     console.log("error in calbackFn",error);
                 }
             }
-            console.log('Created message using callback');
+            Log.debug('Created message using callback');
             if(err)
-                console.log('error',err);
+                Log.debug('error',err);
             if(result)
-                console.log(result.sid);
+                Log.debug(result.sid);
         })
     }
 

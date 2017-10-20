@@ -39,25 +39,39 @@ export class DangerousRoomService extends BaseService {
     }
 
     get allNotifications$():Observable<any[]> {
-        return this.MeteorSubscribeAutorun('dangerous-room/notifications',() => drCollectionNotifications.find({},{sort:{ts:-1}}).fetch());
+        return this.MeteorSubscribeAutorun('dangerous-room/notifications/new',
+            () => drCollectionNotifications
+                .find({"showed":{$exists:false}},{sort:{ts:-1}})
+                .fetch());
     }
 
+    /**
+     * @deprecated
+     * @param {any[]} notif
+     */
     setNotifications(notif:any[]) {
         this._notifications$.next([]);
         notif.forEach(_n => {
             if(!this._notifications[_n._id]) {
                 this._notifications[_n._id] = _n;
                 this._notifications[_n._id]['timeToShow'] = true;
-                Meteor.setTimeout(() => {
-                    let id = _n.id;
-                    this._notifications[_n._id]['timeToShow'] = false;
-                    this._notifications$.next(_.values(this._notifications));
-                },5000);
-                this._notifications$.next(_.values(this._notifications));
             }
-        })
+        });
+        this._notifications$.next(_.values(this._notifications));
+
+        Meteor.setTimeout(() => {
+            notif.forEach(_n => {
+                let id = _n.id;
+                this._notifications[_n._id]['timeToShow'] = false;
+            });
+            this._notifications$.next(_.values(this._notifications));
+        },5000);
     }
 
+    /**
+     * @deprecated
+     * @returns {Observable<any>}
+     */
     get getNotifications$() {
         return this._notifications$.asObservable();
     }

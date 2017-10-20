@@ -4,7 +4,7 @@ import { TdDialogService } from '@covalent/core';
 import { TdFadeInOutAnimation } from '@covalent/core';
 
 import { DangerousRoomService } from '../shared/dangerous-room.service';
-
+import { Log } from '../../../modules';
 import { BaseComponent } from '../../lib';
 
 import template from './event-list.component.html';
@@ -22,7 +22,7 @@ export class DREventListComponent extends BaseComponent implements OnInit {
 
     private event_list:EventItem[];
 
-    private notifications;
+    private notifications = [];
 
     constructor (private _drService: DangerousRoomService,
                  private _dialogService:TdDialogService,
@@ -35,17 +35,38 @@ export class DREventListComponent extends BaseComponent implements OnInit {
         this.tracked = this._drService.allEvents$.subscribe((e) => {
             this._zone.run(() => {
                 this.event_list = e;
-                console.log(e);
             });
         });
+
+        let x = null;
         this.tracked = this._drService.allNotifications$.subscribe((e) => {
-            this._drService.setNotifications(e);
+            if(e && e.length > 0 && !_.find(this.notifications,(n) => n["_id"] == e[0]["_id"])) {
+                console.log('SUBS e:',e);
+
+                this._zone.run(() => {
+                    e[0]['timeToShow'] = true;
+                    this.notifications.push(e[0]);
+                });
+
+                Meteor.setTimeout(() => {
+                    this._zone.run(() => {
+                        e[0]['timeToShow'] = false;
+                    });
+                },5000);
+
+                if(x) {
+                    Meteor.clearTimeout(x);
+                    x = null;
+                }
+
+                x = Meteor.setTimeout(() => {
+                    this.notifications = this.notifications
+                        .filter((n) => n['timeToShow']);
+                    console.log('SUBS:',this.notifications);
+                    x = null;
+                },30000);
+            }
         });
-        this.tracked = this._drService.getNotifications$.subscribe((v)=>{
-            this._zone.run(() => {
-                this.notifications = v;
-            });
-        })
     }
 
     onDeleteItem(itemID: string): void {
