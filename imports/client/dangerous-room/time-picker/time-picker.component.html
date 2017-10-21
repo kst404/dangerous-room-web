@@ -1,0 +1,25 @@
+<div layout="row" flex>
+    <mat-form-field flex="50">
+        <input matInput
+               [(ngModel)]="hours"
+               type="number"
+               [placeholder]="placeholder"
+               [attr.name]="name+'-h'"
+               [required]="required"
+               [disabled]="disabled"
+               min="0">
+        <span matPrefix>Hours:&nbsp;</span>
+    </mat-form-field>&nbsp;
+    <mat-form-field flex="50">
+        <input matInput
+               [(ngModel)]="mins"
+               type="number"
+               [ngModelOptions]="{standalone: true}"
+               [attr.name]="name+'-m'"
+               [required]="required"
+               [disabled]="disabled"
+               min="0">
+        <span matPrefix>Minutes:&nbsp;</span>
+        <span matSuffix><mat-icon>alarm</mat-icon></span>
+    </mat-form-field>
+</div>
