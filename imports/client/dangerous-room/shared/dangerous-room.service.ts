@@ -23,6 +23,10 @@ export class DangerousRoomService extends BaseService {
         super();
     }
 
+    /**
+     *  EVENTS
+     */
+
     get allEvents$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/events',() => drCollectionEvents.find({},{sort:{date:-1}}).fetch());
     }
@@ -31,13 +35,37 @@ export class DangerousRoomService extends BaseService {
         Meteor.call('dangerous-room/events/delete', itemID);
     }
 
+    updateEvent(event): Observable<any> {
+        let _obs = new Subject();
+        drCollectionEvents.update({"_id":event._id},{$set:event},(e)=>_obs.next(e));
+        return _obs.asObservable();
+    }
+
+    /**
+     *  ROOMS
+     */
     get allRooms$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/rooms',() => drCollectionRooms.find({}).fetch());
     }
 
+    /**
+     *  CONTACTS
+     */
+    /**
+     *
+     * @returns {Observable<any[]>}
+     */
     get allContacts$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/contacts',() => drCollectionContacts.find({}).fetch());
     }
+
+    deleteContact(itemID: string): void {
+        Meteor.call('dangerous-room/contacts/delete', itemID);
+    }
+
+    /**
+     *  NOTIFICATIONS
+     */
 
     get allNotifications$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/notifications/new',
@@ -60,28 +88,6 @@ export class DangerousRoomService extends BaseService {
         this._notifications$.next(this.notifications);
         return this.notifications;
     }
-    /**
-     * @deprecated
-     * @param {any[]} notif
-     */
-    setNotifications(notif:any[]) {
-        this._notifications$.next([]);
-        notif.forEach(_n => {
-            if(!this._notifications[_n._id]) {
-                this._notifications[_n._id] = _n;
-                this._notifications[_n._id]['timeToShow'] = true;
-            }
-        });
-        this._notifications$.next(_.values(this._notifications));
-
-        Meteor.setTimeout(() => {
-            notif.forEach(_n => {
-                let id = _n.id;
-                this._notifications[_n._id]['timeToShow'] = false;
-            });
-            this._notifications$.next(_.values(this._notifications));
-        },5000);
-    }
 
     /**
      * @returns {Observable<any>}
@@ -90,7 +96,4 @@ export class DangerousRoomService extends BaseService {
         return this._notifications$.asObservable();
     }
 
-    deleteContact(itemID: string): void {
-        Meteor.call('dangerous-room/contacts/delete', itemID);
-    }
 }

@@ -1,4 +1,5 @@
 import { Random } from 'meteor/random';
+import { DatePipe } from '@angular/common';
 
 import { Input, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -69,13 +70,10 @@ export class BaseComponent extends Tracking implements OnDestroy {
         return this._submitting;
     }
 
-    dateFormat(d) {
-        var date= new Date(d);
-        var r=[];
-        r.push(("00"+date.getDate()).slice(-2));
-        r.push(("00"+(date.getMonth()+1)).slice(-2));
-        r.push(date.getFullYear());
-        return r.join("/");
-    }
+//     constructor(private datePipe: DatePipe) {}
+//
+//     transformDate(date) {
+//         this.datePipe.transform(myDate, 'yyyy-MM-dd');
+//     }
 
 }

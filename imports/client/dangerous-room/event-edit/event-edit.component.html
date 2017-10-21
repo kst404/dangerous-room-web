@@ -39,22 +39,10 @@
                     </mat-hint>
                 </mat-form-field>
             </div>
-            <div layout="row" class="push-top">
-                <mat-form-field flex-gt-md="50" flex>
-                    <input matInput
-                           #durationControl="ngModel"
-                           type="number"
-                           placeholder="Event's duration minutes"
-                           [(ngModel)]="event.duration"
-                           name="duration"
-                           min="0"
-                           required>
-                    <mat-hint align="start">
-                        <span [hidden]="durationControl.pristine" class="tc-red-600">
-                            <span [hidden]="!durationControl.errors?.required">Required</span>
-                        </span>
-                    </mat-hint>
-                </mat-form-field>
+            <div class="push-top" flex-gt-md="50" flex>
+                <span class="text-normal tc-grey-600 pull-bottom-md">Event duration *</span>
+                <dr-time-picker class="pull-top-xs"
+                        [(ngModel)]="event.duration" name="duration" required></dr-time-picker>
             </div>
         </form>
     </mat-card-content>
