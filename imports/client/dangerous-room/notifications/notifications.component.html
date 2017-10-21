@@ -1,0 +1,31 @@
+<div layout="column" layout-align="center stretch" layout-padding>
+    <ng-template ngFor let-notif [ngForOf]="notifications">
+        <div flex [ngSwitch]="notif?.message.status" [@tdFadeInOut]="notif.timeToShow">
+            <td-message *ngSwitchCase="'start'"
+                        label="Someone {{notif.message.event.event_description}}!"
+                        sublabel="{{notif.ts | amCalendar }}"
+                        color="accent"
+                        icon="info">
+                <!--<button td-message-actions mat-button>VIEW MORE</button>-->
+            </td-message>
+            <td-message *ngSwitchCase="'active'"
+                        label="A person has 10 sec to respond"
+                        sublabel="{{ notif.ts | amCalendar }}"
+                        color="purple"
+                        icon="info">
+            </td-message>
+            <td-message *ngSwitchCase="'alarm'"
+                        label="ALARM! ALARM! Notification has been sent!"
+                        sublabel="Someone {{notif.message.event.event_description}} did not respond {{notif.ts | amCalendar }}"
+                        color="warn"
+                        icon="info">
+            </td-message>
+            <td-message *ngSwitchCase="'passive'"
+                        label="Same person has responded"
+                        sublabel="{{notif.ts | amCalendar }}"
+                        color="primary"
+                        icon="info">
+            </td-message>
+        </div>
+    </ng-template>
+</div>
