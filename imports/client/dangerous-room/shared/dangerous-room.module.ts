@@ -9,6 +9,7 @@ import { drRouting } from './dangerous-room.routing';
 import { DREventListComponent } from '../event-list';
 import { DREventEditComponent } from '../event-edit';
 import { DRContactListComponent } from '../contact-list';
+import { DRContactEditComponent } from '../contact-edit';
 import { DRToolbarContentComponent } from '../toolbar-content';
 import { DRTimePickerComponent } from '../time-picker';
 
@@ -122,7 +123,8 @@ const COVALENT_MODULES:Array<any> = [
         DREventEditComponent,
         DRContactListComponent,
         DRToolbarContentComponent,
-        DRTimePickerComponent
+        DRTimePickerComponent,
+        DRContactEditComponent
     ],
     providers: [
         // DemoDetailResolver,

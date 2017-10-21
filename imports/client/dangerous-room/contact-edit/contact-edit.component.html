@@ -1,0 +1,60 @@
+<td-layout-card-over cardTitle="Event {{action}} form" cardSubtitle="Fill free to fill the form"  cardWidth="75">
+    <!--<ng-template tdLoading="user.form">-->
+    <mat-card-content class="push-bottom-none">
+        <form #contactForm="ngForm">
+            <div layout="row" flex-gt-md="50">
+                <mat-form-field flex class="push-right-xs">
+                    <input matInput
+                           #displayFNameElement
+                           #displayFNameControl="ngModel"
+                           type="text"
+                           placeholder="First Name"
+                           [(ngModel)]="contact.firstName"
+                           name="firstName"
+                           maxlength="100"
+                           required>
+                    <mat-hint align="start">
+                        <span [hidden]="displayFNameControl.pristine" class="tc-red-600">
+                            <span [hidden]="!displayFNameElement.errors?.required">Required</span>
+                        </span>
+                    </mat-hint>
+                    <mat-hint align="end">{{displayFNameElement.value.length}} / 100</mat-hint>
+                </mat-form-field> &nbsp;
+                <mat-form-field flex>
+                    <input matInput
+                           #displayLNameElement
+                           #displayLNameElement="ngModel"
+                           type="text"
+                           placeholder="Last Name"
+                           [(ngModel)]="contact.lastName"
+                           name="lastName"
+                           maxlength="100"
+                           required>
+                    <mat-hint align="start">
+                        <span [hidden]="displayLNameElement.pristine" class="tc-red-600">
+                            <span [hidden]="!displayLNameElement.errors?.required">Required</span>
+                        </span>
+                    </mat-hint>
+                    <mat-hint align="end">{{displayLNameElement.value.length}} / 100</mat-hint>
+                </mat-form-field>
+            </div>
+            <div layout="row" flex-gt-md="50">
+                <mat-form-field flex>
+                    <input type="tel" matInput
+                           [(ngModel)]="contact.telephone"
+                           name="telephone">
+                    <mat-placeholder>
+                        <mat-icon>phone</mat-icon>&nbsp;Telephone
+                    </mat-placeholder>
+
+                </mat-form-field>
+            </div>
+        </form>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-actions>
+        <!--<button mat-button [disabled]="!userForm.form.valid" color="primary" (click)="save()">SAVE</button>-->
+        <button mat-button (click)="back()" color="accent">BACK</button>
+    </mat-card-actions>
+    <!--</ng-template>-->
+</td-layout-card-over>

@@ -37,7 +37,7 @@ export class DangerousRoomService extends BaseService {
 
     updateEvent(event): Observable<any> {
         let _obs = new Subject();
-        drCollectionEvents.update({"_id":event._id},{$set:event},(e)=>_obs.next(e));
+        drCollectionEvents.update({"_id":event._id},{$set:_.omit(event,['_id'])},(e)=>_obs.next(e));
         return _obs.asObservable();
     }
 
@@ -57,6 +57,12 @@ export class DangerousRoomService extends BaseService {
      */
     get allContacts$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/contacts',() => drCollectionContacts.find({}).fetch());
+    }
+
+    updateContact(contact): Observable<any> {
+        let _obs = new Subject();
+        drCollectionContacts.update({"_id":contact._id},{$set:_.omit(contact,['_id'])},(e)=>_obs.next(e));
+        return _obs.asObservable();
     }
 
     deleteContact(itemID: string): void {

@@ -1,6 +1,7 @@
 import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 
+import { Log } from '../../modules';
 import { drCollectionContacts } from '../../collections';
 
 let fields = { fields: { telephone: 0, date: 1 } };
@@ -11,14 +12,31 @@ Meteor.publish('dangerous-room/contacts', function(): Mongo.Cursor<ContactItem> 
   return drCollectionContacts.find({});
 });
 
-drCollectionContacts.deny({
-    insert: function () {
+// drCollectionContacts.deny({
+//     insert: function () {
+//         return true;
+//     },
+//     update: function () {
+//         return true;
+//     },
+//     remove: function () {
+//         return true;
+//     }
+// });
+
+drCollectionContacts.allow({
+    update: function (u,from,fields,to) {
+        // Log.debug('Contacts update from:',u,d,dn,dnn);
+        Log.debug('Contacts update from:',from);
+        Log.debug('Contacts update to:',to);
         return true;
     },
-    update: function () {
+    insert: function (u,d) {
+        Log.debug('Contacts insert:',u,d);
         return true;
     },
-    remove: function () {
+    remove: function (u,d) {
+        Log.debug('Contacts remove:',u,d);
         return true;
     }
 });
