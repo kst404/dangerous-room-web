@@ -7,8 +7,12 @@ let fields = { fields: { description: 1, date: 1 } };
 
 /** Publish all `Events`. */
 Meteor.publish('dangerous-room/events', function(uuid): Mongo.Cursor<EventItem> {
-  Log.debug('dangerous-room/events publish', uuid, this.connection.id);
-  return drCollectionEvents.find({});
+    check(uuid,Match.Optional(String));
+    Log.debug('dangerous-room/events publish', uuid, this.connection.id);
+    let filter = {};
+    if(uuid)
+        filter = {phoneID: uuid};
+    return drCollectionEvents.find(filter);
 });
 
 drCollectionEvents.deny({
@@ -24,16 +28,16 @@ drCollectionEvents.deny({
 });
 
 drCollectionEvents.allow({
-    update: function (u,d) {
-        Log.debug('Events update:',u,d);
+    update: function (u,from,fields,to) {
+        Log.debug('Events update:',u,from,fields,to);
         return true;
     },
-    insert: function (u,d) {
-        Log.debug('Events insert:',u,d);
+    insert: function (u,from,fields,to) {
+        Log.debug('Events insert:',u,from,fields,to);
         return true;
     },
-    remove: function (u,d) {
-        Log.debug('Events remove:',u,d);
+    remove: function (u,from,fields,to) {
+        Log.debug('Events remove:',u,from,fields,to);
         return true;
     }
 });

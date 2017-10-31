@@ -5,7 +5,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 import { Observable } from 'rxjs/Rx';
@@ -39,6 +39,7 @@ export class DREventEditComponent extends BaseComponent implements OnInit {
 
     constructor (private _drService: DangerousRoomService,
                  private _dialogService:TdDialogService,
+                 private _router: Router,
                  private _zone: NgZone,
                  private _route: ActivatedRoute,
                  private _snackBarService: MatSnackBar,
@@ -75,7 +76,18 @@ export class DREventEditComponent extends BaseComponent implements OnInit {
             .subscribe((v) => {
                 if(this.eventForm.valid && this.eventForm.dirty) {
                     if(this.action == 'add') {
-                        this._snackBarService.open('Event added', '', {duration: 2000});
+                        this.tracked = this._drService.insertEvent(this.event).subscribe((d) => {
+                            let e = d.e;
+                            let id = d.id;
+                            if(e) {
+                                console.log(e);
+                                return;
+                            }
+                            this._zone.run(()=> {
+                                this._snackBarService.open('Event added', '', {duration: 2000});
+                                this._router.navigate(['/dangerous-room/events', id, 'edit'], {replaceUrl: true});
+                            });
+                        });
                     } else {
                         this.tracked = this._drService.updateEvent(this.event).subscribe((e)=>{
                             this.eventForm.reset(this.event);

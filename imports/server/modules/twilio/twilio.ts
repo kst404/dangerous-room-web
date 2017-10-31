@@ -14,12 +14,12 @@ class twilioNodeWrapper {
             this.twilioClient = twilio(accountSid, authToken);
     }
 
-    sendSMS (message, callbackFn?) {
+    sendSMS (to,message, callbackFn?) {
 
         if(this.twilioClient)
             this.twilioClient.messages.create({
                 body: message,
-                to: '',  // Text this number
+                to: to,  // Text this number
                 from: Meteor.settings['twilio']['phone'] // From a valid Twilio number
             } , function(err, result) {
                 if(_.isFunction(callbackFn)) {

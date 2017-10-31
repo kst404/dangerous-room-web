@@ -7,10 +7,15 @@ import { drCollectionContacts } from '../../collections';
 let fields = { fields: { telephone: 0, date: 1 } };
 
 /** Publish all `Contacts`. */
-Meteor.publish('dangerous-room/contacts', function(): Mongo.Cursor<ContactItem> {
-  console.log('dangerous-room/contacts publish', Meteor.userId(), this.connection.id);
-  return drCollectionContacts.find({});
+Meteor.publish('dangerous-room/contacts', function(uuid): Mongo.Cursor<ContactItem> {
+    check(uuid,Match.Optional(String));
+    Log.debug('dangerous-room/contacts publish', uuid, this.connection.id);
+    let filter = {};
+    if(uuid)
+        filter = {phoneID: uuid};
+    return drCollectionContacts.find(filter);
 });
+
 
 // drCollectionContacts.deny({
 //     insert: function () {
@@ -47,12 +52,12 @@ Meteor.methods({
      * @param param
      */
     "dangerous-room/contacts/delete": function (id) {
-        console.log("dangerous-room/contacts: param = " + JSON.stringify(id));
+        Log.debug("dangerous-room/contacts: param = " + JSON.stringify(id));
 
         check(id, String);
         let event = drCollectionContacts.findOne({_id: id});
         if (!event) {
-            console.log("dangerous-room/contacts/delete: Can't find contact with id " + id);
+            Log.debug("dangerous-room/contacts/delete: Can't find contact with id " + id);
             throw new Meteor.Error(500, "Can't find contact");
         }
         drCollectionContacts.remove({"_id": id});

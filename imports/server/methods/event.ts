@@ -4,6 +4,7 @@ import { Twilio } from '../modules/twilio/twilio';
 
 import { Log } from '../../modules';
 import { drCollectionEvents, drCollectionNotifications } from '../../collections';
+import {drCollectionContacts} from "../../collections/contacts";
 
 // let eventMessage = {
 //         sessionId:this.connection.sessionId,
@@ -25,11 +26,12 @@ Meteor.methods({
         check(status, String);
         check(deviceId, String);
 
-        let event = drCollectionEvents.findOne({_id: id});
+        let event = drCollectionEvents.findOne({_id: id, phoneID: deviceId});
         if (!event || !_.contains(['start','active','passive','stop','alarm'],status)) {
             Log.debug("dangerous-room/events/status: Can't find event with id " + id);
             throw new Meteor.Error(500, "Can't find event");
         }
+        let contact = drCollectionContacts.findOne({phoneID: deviceId},{sort:{priority:1}});
 
         let message = {
             sessionId:this.connection.id,
@@ -42,8 +44,8 @@ Meteor.methods({
             }
         };
         if(status == 'alarm') {
-            Log.debug('Send SMS!', "Someone "+event.event_description);
-            Twilio.sendSMS("Someone "+event.event_description);
+            Log.debug('Send SMS!', contact, "Someone "+event.event_description);
+            Twilio.sendSMS(contact.telephone,"Someone "+event.event_description);
         }
             // () => getMessage("event", status);
         return drCollectionNotifications.insert(message)
