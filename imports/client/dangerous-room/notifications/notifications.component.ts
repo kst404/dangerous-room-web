@@ -17,6 +17,30 @@ export class DRNotificationsComponent extends BaseComponent implements OnInit {
 
     private notifications = [];
 
+    private notifColors = {
+        'start': {
+            color: 'accent',
+            icon: 'info'
+        },
+        'active': {
+            color: 'purple',
+            icon: 'info'
+        },
+        'alarm': {
+            color: 'warn',
+            icon: 'info'
+        },
+        'passive': {
+            color: 'primary',
+            icon: 'info'
+        },
+        'stop': {
+            color: 'primary',
+            icon: 'info'
+        }
+
+    };
+
     constructor (private _drService: DangerousRoomService,
                  private _zone: NgZone
     ) {
@@ -24,12 +48,15 @@ export class DRNotificationsComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        let x = null;
-        this.tracked = this._drService.allNotifications$.subscribe((e) => {
-                this._zone.run(() => {
-                    this.notifications = this._drService.getLastNotifications(e);
-                });
+        this.tracked = this._drService.getNotifications$.subscribe((e) => {
+            this._zone.run(() => {
+                this.notifications = e;
+            });
         });
+    }
+
+    getLabel(notif){
+        return this._drService.getNotificationLabel(notif);
     }
 
 }

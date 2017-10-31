@@ -2,9 +2,9 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { TdDialogService } from '@covalent/core';
 
-import { DangerousRoomService } from '../shared/dangerous-room.service';
+import { DangerousRoomService } from '../../shared/dangerous-room.service';
 
-import { BaseComponent } from '../../lib';
+import { BaseComponent } from '../../../lib';
 
 import template from './contact-list.component.html';
 import style from './contact-list.component.scss';

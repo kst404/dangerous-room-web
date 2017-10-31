@@ -2,10 +2,8 @@ import { ModuleWithProviders } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { DangerousRoomComponent } from './dangerous-room.component';
-import { DREventListComponent } from '../event-list';
-import { DREventEditComponent } from '../event-edit';
-import { DRContactListComponent } from '../contact-list';
-import { DRContactEditComponent } from '../contact-edit';
+import { DREventListComponent, DREventEditComponent } from '../events';
+import { DRContactListComponent, DRContactEditComponent } from '../contacts';
 
 
 export const drRouting: ModuleWithProviders = RouterModule.forChild([

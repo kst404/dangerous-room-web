@@ -11,16 +11,18 @@ import {
     drCollectionNotifications
 } from '../../../collections';
 import {Subject} from "rxjs/Subject";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Injectable()
 export class DangerousRoomService extends BaseService {
 
     private _notifications = {};
-    private _notifications$ = new Subject();
+    private _notifications$ = new BehaviorSubject(null);
     private notifications = [];
 
     constructor() {
         super();
+        this.tracked = this.allNotifications$.subscribe((e) => this.getLastNotifications(e));
     }
 
     /**
@@ -43,8 +45,9 @@ export class DangerousRoomService extends BaseService {
 
     insertEvent(event): Observable<any> {
         let _obs = new Subject();
+        //TODO: how to deal with this???
         let _iid = drCollectionEvents.insert(_.omit(event,['_id']),(e,id)=>_obs.next({e:e, id:id}));
-        console.log('localID',_iid);
+        _obs.next({e:null, id:+_iid});
         return _obs.asObservable();
     }
 
@@ -106,7 +109,23 @@ export class DangerousRoomService extends BaseService {
      * @returns {Observable<any>}
      */
     get getNotifications$() {
-        return this._notifications$.asObservable();
+        return this._notifications$.filter(_ => !!_);
+    }
+
+    public getNotificationLabel(notif) {
+        switch(notif.message.status){
+            case "start":
+                return "Someone "+notif.message.event.event_description+"!";
+            case "active":
+                return "A person has 10 sec to respond";
+            case "alarm":
+                return "ALARM! ALARM! Notification has been sent!";
+            case "passive":
+                return "Same person has responded";
+            case "stop":
+                return notif.message.event.event_description+" - completed";
+        }
+
     }
 
 }

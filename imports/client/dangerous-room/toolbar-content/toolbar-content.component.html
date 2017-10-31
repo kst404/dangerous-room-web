@@ -21,7 +21,7 @@
                 <ng-template let-last="last" ngFor let-notif [ngForOf]="get10Notifications()">
                     <a mat-list-item>
                         <mat-icon matListAvatar>today</mat-icon>
-                        <h4 matLine><span class="text-wrap">Someone {{notif.message.event.event_description}}!</span></h4>
+                        <h4 matLine><span class="text-wrap">{{getNotificationLabel(notif)}}</span></h4>
                         <p matLine>{{notif.ts | amCalendar }}</p>
                     </a>
                     <mat-divider *ngIf="!last"></mat-divider>

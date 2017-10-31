@@ -34,4 +34,8 @@ export class DRToolbarContentComponent extends BaseComponent {
     get10Notifications(){
         return this.notifications.slice(0, 9);
     }
+
+    getNotificationLabel(notif) {
+        return this._drService.getNotificationLabel(notif);
+    }
 }

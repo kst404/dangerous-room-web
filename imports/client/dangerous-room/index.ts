@@ -1,2 +1,2 @@
 export * from './shared'
-export * from './event-list'
+export * from './events/event-list'

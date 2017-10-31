@@ -11,8 +11,8 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { Observable } from 'rxjs/Rx';
 import { TdDialogService } from '@covalent/core';
 
-import { BaseComponent } from '../../lib';
-import { DangerousRoomService } from '../shared';
+import { BaseComponent } from '../../../lib';
+import { DangerousRoomService } from '../../shared';
 
 import template from './contact-edit.component.html';
 import style from './contact-edit.component.scss';

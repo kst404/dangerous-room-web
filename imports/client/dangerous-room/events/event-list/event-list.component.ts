@@ -3,8 +3,8 @@ import { Observable } from 'rxjs/Rx';
 import { TdDialogService } from '@covalent/core';
 import { TdFadeInOutAnimation } from '@covalent/core';
 
-import { DangerousRoomService } from '../shared/dangerous-room.service';
-import { BaseComponent } from '../../lib';
+import { DangerousRoomService } from '../../shared/dangerous-room.service';
+import { BaseComponent } from '../../../lib';
 
 import template from './event-list.component.html';
 import style from './event-list.component.scss';
