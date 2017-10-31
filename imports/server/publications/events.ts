@@ -10,21 +10,12 @@ Meteor.publish('dangerous-room/events', function(uuid): Mongo.Cursor<EventItem> 
     check(uuid,Match.Optional(String));
     Log.debug('dangerous-room/events publish', uuid, this.connection.id);
     let filter = {};
-    if(uuid)
+    if(uuid && uuid !='admin')
         filter = {phoneID: uuid};
+    if(!uuid){
+        this.ready();
+    } else
     return drCollectionEvents.find(filter);
-});
-
-drCollectionEvents.deny({
-    // insert: function () {
-    //     return true;
-    // },
-    // update: function () {
-    //     return true;
-    // },
-    // remove: function () {
-    //     return true;
-    // }
 });
 
 drCollectionEvents.allow({

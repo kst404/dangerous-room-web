@@ -22,7 +22,7 @@ export class DangerousRoomService extends BaseService {
 
     constructor() {
         super();
-        this.tracked = this.allNotifications$.subscribe((e) => this.getLastNotifications(e));
+        this.tracked = this.newNotifications$.subscribe((e) => this.getLastNotifications(e));
     }
 
     /**
@@ -30,7 +30,7 @@ export class DangerousRoomService extends BaseService {
      */
 
     get allEvents$():Observable<any[]> {
-        return this.MeteorSubscribeAutorun('dangerous-room/events',() => drCollectionEvents.find({},{sort:{date:-1}}).fetch());
+        return this.MeteorSubscribeAutorun('dangerous-room/events',"admin", () => drCollectionEvents.find({},{sort:{date:-1}}).fetch());
     }
 
     deleteEvent(itemID: string): void {
@@ -55,7 +55,7 @@ export class DangerousRoomService extends BaseService {
      *  ROOMS
      */
     get allRooms$():Observable<any[]> {
-        return this.MeteorSubscribeAutorun('dangerous-room/rooms',() => drCollectionRooms.find({}).fetch());
+        return this.MeteorSubscribeAutorun('dangerous-room/rooms',"admin", () => drCollectionRooms.find({}).fetch());
     }
 
     /**
@@ -66,7 +66,7 @@ export class DangerousRoomService extends BaseService {
      * @returns {Observable<any[]>}
      */
     get allContacts$():Observable<any[]> {
-        return this.MeteorSubscribeAutorun('dangerous-room/contacts',() => drCollectionContacts.find({},{sort:{priority:1}}).fetch());
+        return this.MeteorSubscribeAutorun('dangerous-room/contacts', "admin", () => drCollectionContacts.find({},{sort:{priority:1}}).fetch());
     }
 
     updateContact(contact): Observable<any> {
@@ -84,6 +84,14 @@ export class DangerousRoomService extends BaseService {
      */
 
     get allNotifications$():Observable<any[]> {
+        return this.MeteorSubscribeAutorun('dangerous-room/notifications/all',
+            () => drCollectionNotifications
+                .find({},{sort:{ts:-1}})
+                .fetch()
+        );
+    }
+
+    get newNotifications$():Observable<any[]> {
         return this.MeteorSubscribeAutorun('dangerous-room/notifications/new',
             () => drCollectionNotifications
                 .find({"showed":{$exists:false}},{sort:{ts:-1}})
@@ -105,6 +113,10 @@ export class DangerousRoomService extends BaseService {
         return this.notifications;
     }
 
+    resetNotifications() {
+        this.notifications = [];
+        this._notifications$.next(this.notifications);
+    }
     /**
      * @returns {Observable<any>}
      */

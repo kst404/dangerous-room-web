@@ -8,7 +8,7 @@ let fields = { fields: { description: 1, date: 1 } };
 
 /** Publish all `Events`. */
 Meteor.publish('dangerous-room/notifications/new', function(): Mongo.Cursor<any> {
-    Log.debug('dangerous-room/notifications publish', this.connection.id);
+    Log.debug('dangerous-room/notifications/new publish', this.connection.id);
     let _scheduler = null;
 
     const handle = drCollectionNotifications.find({"showed":{$exists: false}}).observeChanges({
@@ -31,7 +31,7 @@ Meteor.publish('dangerous-room/notifications/new', function(): Mongo.Cursor<any>
 });
 
 Meteor.publish('dangerous-room/notifications/all', function(): Mongo.Cursor<any> {
-    Log.debug('dangerous-room/notifications publish', this.connection.id);
+    Log.debug('dangerous-room/notifications/all publish', this.connection.id);
 
     return drCollectionNotifications.find({}, {
         sort: {

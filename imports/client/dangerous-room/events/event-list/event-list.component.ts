@@ -38,7 +38,7 @@ export class DREventListComponent extends BaseComponent implements OnInit {
         });
 
         let x = null;
-        this.tracked = this._drService.allNotifications$.subscribe((e) => {
+        this.tracked = this._drService.newNotifications$.subscribe((e) => {
                 this._zone.run(() => {
                     this.notifications = this._drService.getLastNotifications(e);
                 });

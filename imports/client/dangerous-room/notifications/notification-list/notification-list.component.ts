@@ -1,19 +1,19 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { TdFadeInOutAnimation } from '@covalent/core';
 
-import { DangerousRoomService } from '../shared/dangerous-room.service';
-import { BaseComponent } from '../../lib';
+import { DangerousRoomService } from '../../shared/dangerous-room.service';
+import { BaseComponent } from '../../../lib';
 
-import template from './notifications.component.html';
+import template from './notification-list.component.html';
 
 @Component({
-    selector: 'dr-notifications',
+    selector: 'dr-notification-list',
     animations: [
         TdFadeInOutAnimation({anchor:'tdFadeInOut', duration: 1000})
     ],
     template
 })
-export class DRNotificationsComponent extends BaseComponent implements OnInit {
+export class DRNotificationListComponent extends BaseComponent implements OnInit {
 
     private notifications = [];
 
@@ -49,7 +49,8 @@ export class DRNotificationsComponent extends BaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.tracked = this._drService.getNotifications$.subscribe((e) => {
+        this.tracked = this._drService.allNotifications$.subscribe((e) => {
+            this._drService.resetNotifications();
             this._zone.run(() => {
                 this.notifications = e;
             });

@@ -5,6 +5,8 @@ import { DangerousRoomComponent } from './dangerous-room.component';
 import { DREventListComponent, DREventEditComponent } from '../events';
 import { DRContactListComponent, DRContactEditComponent } from '../contacts';
 
+import { DRNotificationListComponent } from '../notifications';
+
 
 export const drRouting: ModuleWithProviders = RouterModule.forChild([
     {
@@ -25,6 +27,16 @@ export const drRouting: ModuleWithProviders = RouterModule.forChild([
                     {
                         path: ':id/edit',
                         component: DREventEditComponent
+                    }
+                ]
+
+            },
+            {
+                path: 'notifications',
+                children:[
+                    {
+                        path: '',
+                        component: DRNotificationListComponent
                     }
                 ]
 

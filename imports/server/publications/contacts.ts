@@ -11,8 +11,11 @@ Meteor.publish('dangerous-room/contacts', function(uuid): Mongo.Cursor<ContactIt
     check(uuid,Match.Optional(String));
     Log.debug('dangerous-room/contacts publish', uuid, this.connection.id);
     let filter = {};
-    if(uuid)
+    if(uuid && uuid !='admin')
         filter = {phoneID: uuid};
+    if(!uuid){
+        this.ready();
+    } else
     return drCollectionContacts.find(filter);
 });
 

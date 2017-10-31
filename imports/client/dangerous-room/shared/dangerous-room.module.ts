@@ -10,7 +10,7 @@ import { DREventListComponent, DREventEditComponent } from '../events';
 import { DRContactListComponent, DRContactEditComponent } from '../contacts';
 import { DRToolbarContentComponent } from '../toolbar-content';
 import { DRTimePickerComponent } from '../time-picker';
-import { DRNotificationsComponent } from '../notifications';
+import { DRNotificationsComponent, DRNotificationListComponent } from '../notifications';
 
 import {
     MatSelectModule,
@@ -124,7 +124,8 @@ const COVALENT_MODULES:Array<any> = [
         DRToolbarContentComponent,
         DRTimePickerComponent,
         DRContactEditComponent,
-        DRNotificationsComponent
+        DRNotificationsComponent,
+        DRNotificationListComponent
     ],
     providers: [
         // DemoDetailResolver,

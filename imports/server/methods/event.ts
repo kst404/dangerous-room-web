@@ -40,10 +40,11 @@ Meteor.methods({
             message: {
                 type: "event",
                 status: status,
-                event: event
+                event: event,
+                contact: contact
             }
         };
-        if(status == 'alarm') {
+        if(status == 'alarm' && contact) {
             Log.debug('Send SMS!', contact, "Someone "+event.event_description);
             Twilio.sendSMS(contact.telephone,"Someone "+event.event_description);
         }

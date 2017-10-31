@@ -1,0 +1,16 @@
+<td-layout-card-over cardTitle="Last 50 notifications" cardSubtitle="It's really dangerous" cardWidth="75">
+    <div layout="column" layout-align="center stretch" layout-padding>
+        <div layout="column" layout-align="center stretch" layout-padding>
+            <ng-template ngFor let-notif [ngForOf]="notifications">
+                <div flex [@tdFadeInOut]="notif.timeToShow">
+                    <td-message label="{{getLabel(notif)}}"
+                                sublabel="{{getSubLabel(notif)}}{{ notif.ts | amCalendar }}"
+                                color="{{notifColors[notif.message.status].color}}"
+                                icon="{{notifColors[notif.message.status].icon}}">
+                        <!--<button td-message-actions mat-button>VIEW MORE</button>-->
+                    </td-message>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</td-layout-card-over>
