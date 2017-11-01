@@ -11,17 +11,17 @@ Meteor.publish('dangerous-room/notifications/new', function(): Mongo.Cursor<any>
     Log.debug('dangerous-room/notifications/new publish', this.connection.id);
     let _scheduler = null;
 
-    const handle = drCollectionNotifications.find({"showed":{$exists: false}}).observeChanges({
-        added: (id,doc) => {
-            Log.debug('dangerous-room/notifications publish added',id,doc);
-            Meteor.setTimeout(()=>{
-                drCollectionNotifications.update({"_id":id},{ $set: { "showed": true } })
-            },15000);
-        }
-    });
-    this.onStop(()=>{
-        handle.stop();
-    });
+    // const handle = drCollectionNotifications.find({"showed":{$exists: false}}).observeChanges({
+    //     added: (id,doc) => {
+    //         Log.debug('dangerous-room/notifications publish added',id,doc);
+    //         Meteor.setTimeout(()=>{
+    //             drCollectionNotifications.update({"_id":id},{ $set: { "showed": true } })
+    //         },15000);
+    //     }
+    // });
+    // this.onStop(()=>{
+    //     handle.stop();
+    // });
     return drCollectionNotifications.find({"showed":{$exists:false}}, {
         sort: {
             ts: -1
@@ -53,3 +53,12 @@ drCollectionNotifications.deny({
     }
 });
 
+//keep track of new notifications?
+const handle = drCollectionNotifications.find({"showed":{$exists: false}}).observeChanges({
+    added: (id,doc) => {
+        Log.debug('dangerous-room/notifications publish added',id,doc);
+        Meteor.setTimeout(()=>{
+            drCollectionNotifications.update({"_id":id},{ $set: { "showed": true } })
+        },15000);
+    }
+});
